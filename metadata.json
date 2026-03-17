@@ -1,0 +1,5 @@
+{
+  "name": "Gestor de Practicantes",
+  "description": "App web para gestionar practicantes leyendo un archivo Excel, con filtros, métricas y vistas de tabla/tarjetas.",
+  "requestFramePermissions": []
+}

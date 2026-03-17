@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Practicantes</title>
+    <link rel="stylesheet" href="/styles.css">
+    <!-- SheetJS para leer Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>Gestor de Practicantes</h1>
+            <div class="metrics" id="metrics-container">
+                <!-- Metrics will be injected here -->
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="controls-section">
+                <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="search-input" placeholder="Buscar por nombre, ID, correo, institución...">
+                </div>
+                
+                <div class="filters-grid" id="filters-container">
+                    <!-- Filters will be injected here -->
+                </div>
+
+                <div class="actions-bar">
+                    <div class="view-toggles">
+                        <button id="btn-view-table" class="active" title="Vista Tabla"><i data-lucide="table"></i></button>
+                        <button id="btn-view-cards" title="Vista Tarjetas"><i data-lucide="layout-grid"></i></button>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="btn-clear-filters" class="btn-secondary"><i data-lucide="filter-x"></i> Limpiar Filtros</button>
+                        <button id="btn-export-csv" class="btn-primary"><i data-lucide="download"></i> Exportar CSV</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error State / Fallback Upload -->
+            <div id="error-message" class="error-message hidden">
+                <i data-lucide="alert-circle"></i>
+                <p>No se pudo cargar el archivo Excel automáticamente (<code>./data/practicantes.xlsx</code>).</p>
+                <div class="demo-upload">
+                    <p>Sube tu archivo Excel manualmente para usar la aplicación:</p>
+                    <input type="file" id="file-upload" accept=".xlsx, .xls">
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-indicator" class="loading-indicator">
+                <div class="spinner"></div>
+                <p>Cargando datos...</p>
+            </div>
+
+            <!-- Main Content Area -->
+            <div id="content-area" class="content-area hidden">
+                <!-- Table View -->
+                <div id="table-view" class="view-container">
+                    <div class="table-responsive">
+                        <table id="data-table">
+                            <thead>
+                                <tr id="table-header">
+                                    <!-- Headers injected via JS -->
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- Rows injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Cards View -->
+                <div id="cards-view" class="view-container hidden">
+                    <div class="cards-grid" id="cards-container">
+                        <!-- Cards injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination-container">
+                <!-- Pagination injected via JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Notes -->
+    <div id="notes-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Notas del Practicante</h2>
+                <button id="btn-close-modal" class="btn-icon"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <textarea id="notes-textarea" rows="5" placeholder="Escribe tus notas aquí..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-save-notes" class="btn-primary">Guardar Notas</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
