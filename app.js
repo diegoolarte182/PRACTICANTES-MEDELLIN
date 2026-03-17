@@ -48,20 +48,23 @@ async function initApp() {
     await loadExcelData();
 }
 
-// Carga de datos
-async function loadExcelData() {
-    showLoading(true);
-    try {
-        const response = await fetch('./data/practicantes.csv');
-        if (!response.ok) throw new Error('Archivo no encontrado');
-        
-        const arrayBuffer = await response.arrayBuffer();
-        processExcelData(arrayBuffer);
-    } catch (error) {
-        console.error('Error cargando Excel:', error);
-        showError(true);
-        showLoading(false);
-    }
+async function cargarDatos() {
+  const response = await fetch('data/practicantes.csv');
+  const text = await response.text();
+
+  const filas = text.split('\n').map(f => f.split(','));
+
+  const headers = filas[0];
+
+  const data = filas.slice(1).map(fila => {
+    let obj = {};
+    headers.forEach((h, i) => {
+      obj[h.trim()] = fila[i]?.trim();
+    });
+    return obj;
+  });
+
+  return data;
 }
 
 function processExcelData(arrayBuffer) {
