@@ -52,7 +52,7 @@ async function initApp() {
 async function loadExcelData() {
     showLoading(true);
     try {
-        const response = await fetch('./data/practicantes.xlsx');
+        const response = await fetch('./data/practicantes.csv');
         if (!response.ok) throw new Error('Archivo no encontrado');
         
         const arrayBuffer = await response.arrayBuffer();
